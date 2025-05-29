@@ -7,7 +7,13 @@ const API = axios.create({
 export const getUsers = () => API.get("/users");
 
 export const loginUser = (email, password) => {
-  return API.get("/auth/login", {
-    params: { email, password },
+  const params = new URLSearchParams();
+  params.append("email", email);
+  params.append("password", password);
+
+  return API.post("/auth/login", params, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
   });
 };
